@@ -1,7 +1,4 @@
 use git2::{Repository, Commit};
-//use git2::ObjectType::Commit;
-
-
 fn main() {
     let repo = match Repository::open(".") {
         Ok(repo) => repo,
@@ -24,6 +21,36 @@ fn main() {
     // Access information about the commit (optional)
     println!("Commit SHA: {}", commit.id().to_string());
     println!("Commit message: {}", commit.message().unwrap_or("No message"));
+    // Create a vector to store commit history
+    let mut commit_history: Vec<String> = Vec::new();
+
+    // Iterate through the commit history starting from HEAD
+    let mut current_commit = Some(head);
+    while let Some(ref commit) = current_commit {
+        //let commit_message = commit.summary().unwrap().to_string();
+        //commit_history.push(commit_message);
+
+        //current_commit = commit.parents().next().map(|p| p.peel::<Commit>(commit).unwrap());
+    }
+
+    // Create a vector to store XOR of each commit
+    let mut xor_history: Vec<String> = Vec::new();
+    for i in 0..commit_history.len() - 1 {
+        //let xor_result = vector_commit::xor_strings(&commit_history[i], &commit_history[i + 1]);
+        //xor_history.push(xor_result);
+    }
+
+    // Print the commit history
+    println!("Commit History:");
+    for commit in commit_history {
+        println!("{}", commit);
+    }
+
+    // Print the XOR history
+    println!("XOR History:");
+    for xor in xor_history {
+        println!("{}", xor);
+    }
 }
 
 // fn main() {
