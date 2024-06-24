@@ -1,5 +1,27 @@
 use git2::{Commit, Repository};
+use std::env;
+use std::str::FromStr;
 fn main() {
+    let args: Vec<String> = env::args().collect();
+
+    let mut index_1: String = "".to_string();
+    let mut index_2: String = "".to_string();
+
+    if args.len() < 2 {
+        println!("Usage: {} <filename>", args[0]);
+        return;
+    }
+
+    if args.len() == 2 {
+        index_1 = args[1].clone();
+        println!("index_1: {}", index_1);
+    }
+    if args.len() == 3 {
+        index_1 = args[1].clone();
+        index_2 = args[2].clone();
+        println!("index_1: {}", index_1);
+        println!("index_2: {}", index_2);
+    }
     let repo = match Repository::open(".") {
         Ok(repo) => repo,
         Err(err) => panic!("failed to open repository: {}", err),
@@ -28,8 +50,7 @@ fn main() {
     let mut commit_history: Vec<String> = Vec::new();
 
     // Get the first parent (if it exists)
-    let index = 0;
-    let parent_commit = match commit.parent(index) {
+let parent_commit = match commit.parent(usize::from_str(&index_1).expect("REASON")) {
         Ok(parent) => parent,
         Err(err) => {
             println!("This commit has no parent (likely the initial commit).");
