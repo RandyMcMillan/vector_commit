@@ -64,16 +64,16 @@ let parent_commit = match commit.parent(usize::from_str(&index_1).expect("REASON
         parent_commit.message().unwrap_or("No message")
     );
 
-    //// Iterate through the commit history starting from HEAD
-    //let mut current_commit = Some(commit);
-    //while let Some(ref commit) = current_commit {
-    //    let commit_message = commit.message().unwrap_or("No message");
-    //    println!("Commit message: {}", commit.message().unwrap_or("No message"));
-    //    //commit_history.push(&commit_message);
-    //    commit_history.push((&commit_message).to_string());
+    // Iterate through the commit history starting from HEAD
+    let mut current_commit = Some(commit);
+    while let Some(ref commit) = current_commit {
+        let commit_message = commit.message().unwrap_or("No message");
+        println!("Commit message: {}", commit.message().unwrap_or("No message"));
+        //commit_history.push(&commit_message);
+        commit_history.push((&commit_message).to_string());
 
-    //    current_commit = commit.parents().next().map(|p| p.peel::<Commit>(commit).unwrap());
-    //}
+        current_commit = commit.parents().next().map(|p| p.peel::<Commit>(commit).unwrap());
+    }
 
     //// Create a vector to store XOR of each commit
     //let mut xor_history: Vec<String> = Vec::new();
